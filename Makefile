@@ -1,11 +1,11 @@
 NAME	= philo_one
 
-CC		= clang -g -Wall -Werror -Wextra
+CC		= clang #-g -Wall -Werror -Wextra
 RM		= rm -rf
 
 SRCS_PATH	=	./srcs/
 SRCS_NAME	=	main.c				\
-				philo_one.c			\
+				philo.c			\
 				handle_input.c		\
 				errors.c			\
 				tools.c				\

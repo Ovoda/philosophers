@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
+/*   philo.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_H
-# define PHILO_ONE_H
+#ifndef PHILO_H
+# define PHILO_H
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <sys/time.h>
 # include <pthread.h>
 # define PHILO_ONE "./philo_one"
 # define INPUT_ERROR 1
@@ -27,27 +28,30 @@
 # define INPUT_ARG_5 "[number of time each philosopher must eat]"
 # define INT_MAX 2147483647
 
-typedef struct  s_table 
-{
-	int			nb_forks;
-	int			nb_philo;
-	int			tto_die;
-	int			tto_eat;
-	int			tto_sleep;
-	int			nb_eat;
-}               t_table;
-
 typedef struct	s_philo
 {
-	pthread_t	thread;
-	int			id;
-	int			die_in;
-	int			sleep_time;
-	int			eat_time;
+	pthread_t		thread;
+	int				id;
+	int				die_in;
+	int				sleep_time;
+	int				eat_time;
+	struct timeval	start;
+	pthread_mutex_t *mutex;
 }				t_philo;
 
+typedef struct  s_table 
+{
+	int				nb_forks;
+	int				nb_philo;
+	int				tto_die;
+	int				tto_eat;
+	int				tto_sleep;
+	int				nb_eat;
+}               t_table;
+
+
 t_table	*handle_input(int argc, char **argv);
-int		philo_one(t_table *table);
+int		philo(t_table *table);
 
 //ERRORS
 void	*ft_null_error(char *str, int mode);
