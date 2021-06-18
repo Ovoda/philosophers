@@ -27,6 +27,10 @@
 # define INPUT_ARG_4 "[time to sleep]"
 # define INPUT_ARG_5 "[number of time each philosopher must eat]"
 # define INT_MAX 2147483647
+# define ACTION_EAT "is eating"
+# define ACTION_THINK "is thinking"
+# define ACTION_SLEEP "is sleeping"
+# define ACTION_FORK "has taken a fork"
 
 typedef struct	s_philo
 {
@@ -37,6 +41,15 @@ typedef struct	s_philo
 	int				eat_time;
 	struct timeval	start;
 	pthread_mutex_t *mutex;
+	int				*fork;
+	int				nb_fork;
+	int				own_fork;
+	int				next_fork;
+	int				*last_meal;
+	int				*begin;
+	struct timeval	last_fed;
+	int				*alive;
+	int				*ready;
 }				t_philo;
 
 typedef struct  s_table 
@@ -52,6 +65,7 @@ typedef struct  s_table
 
 t_table	*handle_input(int argc, char **argv);
 int		philo(t_table *table);
+void	*routine(void *arg);
 
 //ERRORS
 void	*ft_null_error(char *str, int mode);
@@ -60,11 +74,21 @@ void	*ft_null_error(char *str, int mode);
 int 	ft_isint_foreach(char **argv, int (*func)(char *));
 int 	is_int(char *str);
 int		ft_positive_atoi(char *str);
+int		ft_usleep(int time);
+void	print_message(t_philo philo, char *action);
+
+//MUTEX TOOLS
+void				destroy_mutex(t_philo *philo, t_table *table);
+pthread_mutex_t    *init_mutex(t_table *table);
 
 //TABLE TOOLS
 void	print_table(t_table table);
 int		ft_free_table(t_table *table, int ret);
 t_table	*init_table(char **argv, t_table *table);
 
+//ACTIONS
+void    philo_eat(t_philo philo);
+void    philo_sleep(t_philo philo);
+void    philo_think(t_philo philo);
 
 #endif
