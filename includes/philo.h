@@ -36,9 +36,9 @@ typedef struct	s_philo
 {
 	pthread_t		thread;
 	int				id;
-	int				die_in;
 	int				sleep_time;
 	int				eat_time;
+	int				ms_start;
 	struct timeval	start;
 	pthread_mutex_t *mutex;
 	int				*fork;
@@ -46,10 +46,6 @@ typedef struct	s_philo
 	int				own_fork;
 	int				next_fork;
 	int				*last_meal;
-	int				*begin;
-	struct timeval	last_fed;
-	int				*alive;
-	int				*ready;
 }				t_philo;
 
 typedef struct  s_table 

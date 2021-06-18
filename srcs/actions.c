@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:51:19 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/18 14:02:40 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/18 15:11:40 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void    philo_eat(t_philo philo)
     print_message(philo, ACTION_EAT);
     ft_usleep(100);
     gettimeofday(&start, NULL);
-    *(philo.last_meal) = start.tv_sec * 1000 + start.tv_usec / 1000;
 }
 
 void    philo_sleep(t_philo philo)
