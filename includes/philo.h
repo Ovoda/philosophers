@@ -36,19 +36,15 @@ typedef struct	s_philo
 {
 	pthread_t		thread;
 	int				id;
-	int				sleep_time;
-	int				eat_time;
-	int				ms_start;
-	struct timeval	start;
 	pthread_mutex_t *mutex;
 	int				*fork;
 	int				nb_fork;
 	int				own_fork;
 	int				next_fork;
-	int				*last_meal;
+	int				last_meal;
 }				t_philo;
 
-typedef struct  s_table 
+typedef struct  s_global 
 {
 	int				nb_forks;
 	int				nb_philo;
@@ -56,11 +52,21 @@ typedef struct  s_table
 	int				tto_eat;
 	int				tto_sleep;
 	int				nb_eat;
-}               t_table;
+	int				alive;
+	int				ms_start;
+	int				nb_fork;
+	t_philo			*philo;
+	struct timeval	start;
+}				t_global;
 
+typedef struct	s_params
+{
+	int			i;
+	t_global	*global;
+}				t_params;
 
-t_table	*handle_input(int argc, char **argv);
-int		philo(t_table *table);
+t_global	*handle_input(int argc, char **argv);
+int		philo(t_global *global);
 void	*routine(void *arg);
 
 //ERRORS
@@ -74,13 +80,13 @@ int		ft_usleep(int time);
 void	print_message(t_philo philo, char *action);
 
 //MUTEX TOOLS
-void				destroy_mutex(t_philo *philo, t_table *table);
-pthread_mutex_t    *init_mutex(t_table *table);
+void				destroy_mutex(t_philo *philo, t_global *global);
+pthread_mutex_t    *init_mutex(t_global *global);
 
-//TABLE TOOLS
-void	print_table(t_table table);
-int		ft_free_table(t_table *table, int ret);
-t_table	*init_table(char **argv, t_table *table);
+//global TOOLS
+void	print_global(t_global global);
+int		ft_free_global(t_global *global, int ret);
+t_global	*init_global(char **argv, t_global *global);
 
 //ACTIONS
 void    philo_eat(t_philo philo);

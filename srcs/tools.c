@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 09:28:09 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/18 13:22:07 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/18 19:02:32 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_message(t_philo philo, char *action)
 	gettimeofday(&stop, NULL);
 	ms_stop = stop.tv_sec * 1000 + stop.tv_usec / 1000;
 	ms_start = philo.start.tv_sec * 1000 + philo.start.tv_usec / 1000;
-	printf("%d %d %s\n", ms_stop - ms_start, philo.id, action);
+	printf("%05d %d %s\n", ms_stop - ms_start, philo.id, action);
 }
 
 int    ft_usleep(int time)

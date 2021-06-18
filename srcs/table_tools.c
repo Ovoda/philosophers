@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   table_tools.c                                      :+:      :+:    :+:   */
+/*   global_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,39 +12,39 @@
 
 #include "../includes/philo.h"
 
-t_table	*init_table(char **argv, t_table *table)
+t_global	*init_global(char **argv, t_global *global)
 {
-	table = (t_table *)malloc(sizeof(t_table));
-	table->nb_philo = ft_positive_atoi(argv[1]);
-	table->nb_forks = table->nb_philo;
-	table->tto_die = ft_positive_atoi(argv[2]);
-	table->tto_eat = ft_positive_atoi(argv[3]);
-	table->tto_sleep = ft_positive_atoi(argv[4]);
+	global = (t_global *)malloc(sizeof(t_global));
+	global->nb_philo = ft_positive_atoi(argv[1]);
+	global->nb_forks = global->nb_philo;
+	global->tto_die = ft_positive_atoi(argv[2]);
+	global->tto_eat = ft_positive_atoi(argv[3]);
+	global->tto_sleep = ft_positive_atoi(argv[4]);
 	if (argv[5])
-		table->nb_eat = ft_positive_atoi(argv[5]);
+		global->nb_eat = ft_positive_atoi(argv[5]);
 	else
-		table->nb_eat = 0;
-	if (table->nb_philo < 0 || table->tto_die < 0 || table->tto_sleep < 0
-		|| table->tto_eat < 0 || table->nb_eat < 0)
+		global->nb_eat = 0;
+	if (global->nb_philo < 0 || global->tto_die < 0 || global->tto_sleep < 0
+		|| global->tto_eat < 0 || global->nb_eat < 0)
 		return (NULL);
-	return (table);
+	return (global);
 }
 
-void    print_table(t_table table)
+void    print_global(t_global global)
 {
-	printf("TABLE :\n");
-	printf("Nb of philo : %d\n", table.nb_philo);
-	printf("Time to die : %d\n", table.tto_die);
-	printf("Tiem to eat : %d\n", table.tto_eat);
-	printf("Time to sleep : %d\n", table.tto_sleep);
-	if (table.nb_eat != 0)
-		printf("Nb of time each philo must eat : %d\n", table.nb_eat);
+	printf("global :\n");
+	printf("Nb of philo : %d\n", global.nb_philo);
+	printf("Time to die : %d\n", global.tto_die);
+	printf("Tiem to eat : %d\n", global.tto_eat);
+	printf("Time to sleep : %d\n", global.tto_sleep);
+	if (global.nb_eat != 0)
+		printf("Nb of time each philo must eat : %d\n", global.nb_eat);
 	else
 		printf("Nb of time each philo must eat : Default value (infinite)\n");
 }
 
-int ft_free_table(t_table *table, int ret)
+int ft_free_global(t_global *global, int ret)
 {
-	free(table);
+	free(global);
 	return (ret);
 }

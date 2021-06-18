@@ -1,9 +1,10 @@
-NAME	= philo_one
+NAME	= philo
 
 CC		= clang -g #-Wall -Werror -Wextra
 RM		= rm -rf
 
-SRCS_PATH	=	./srcs/
+SRCS_PATH	=	srcs/
+OBJS_PATH	=	objs/
 SRCS_NAME	=	main.c				\
 				new_philo.c			\
 				actions.c			\
@@ -12,14 +13,17 @@ SRCS_NAME	=	main.c				\
 				errors.c			\
 				tools.c				\
 				mutex_tools.c		\
-				table_tools.c		\
+				global_tools.c		\
 
 INC			= -I./includes
 
-SRCS		= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
-OBJS		= $(SRCS:.c=.o)
+SRCS		= $(notdir $(shell find $(SRCS_PATH) -type f -name *.c))
+OBJS		= $(addprefix $(OBJS_PATH),$(SRCS:.c=.o))
 
-%.o: %.c
+vpath			%.c $(shell find $(SRCS_PATH) -type d)
+.SUFFIXES: 		.c .o .h
+
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	$(CC) $(INC) -c $< -o $@
 
 all: $(NAME)

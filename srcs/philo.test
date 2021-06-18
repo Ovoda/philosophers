@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/30 10:01:59 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/18 12:34:25 by calide-n         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    philo.test                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/05/30 10:01:59 by calide-n          #+#    #+#              #
+#    Updated: 2021/06/18 21:58:24 by calide-n         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #include "../includes/philo.h"
 
@@ -88,7 +88,7 @@ void *exec1(void *arg)
 	return (NULL);
 }
 
-void create_philo(t_table *table)
+void create_philo(t_global *global)
 {
 	t_philo	*p;
 	int		i;
@@ -101,14 +101,14 @@ void create_philo(t_table *table)
 	fork = 0;
 	begin = 0;
 	ready = 0;
-	p = (t_philo *)malloc(sizeof(t_philo) * table->nb_philo);
-	mutex = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
+	p = (t_philo *)malloc(sizeof(t_philo) * global->nb_philo);
+	mutex = malloc(sizeof(pthread_mutex_t) * global->nb_philo);
 	if (!p)
 		return ;
-	while (++i < table->nb_philo)
+	while (++i < global->nb_philo)
 		pthread_mutex_init(&mutex[i], NULL);
 	i = -1;
-	while (++i < table->nb_philo)
+	while (++i < global->nb_philo)
 	{
 		p[i].mutex = mutex;
 		(p[i].fork) = &fork;
@@ -116,18 +116,18 @@ void create_philo(t_table *table)
 		p[i].begin = &begin;
 		p[i].ready = &ready;
 		p[i].next_fork = i + 1;
-		if (p[i].next_fork >= table->nb_philo)
+		if (p[i].next_fork >= global->nb_philo)
 			p[i].next_fork = 0;
-		p[i].nb_fork = table->nb_philo;
+		p[i].nb_fork = global->nb_philo;
 		pthread_create(&p[i].thread, NULL, exec1, (void *)&(p[i]));
 	}
 	i = -1;
-	while (++i < table->nb_philo)
+	while (++i < global->nb_philo)
 		pthread_join(p[i].thread, NULL);
 }
 
-int philo(t_table *table)
+int philo(t_global *global)
 {
-	create_philo(table);
+	create_philo(global);
 	return (0);
 }
