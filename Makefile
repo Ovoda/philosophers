@@ -5,15 +5,6 @@ RM		= rm -rf
 
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
-SRCS_NAME	=	main.c				\
-				new_philo.c			\
-				actions.c			\
-				routine.c			\
-				handle_input.c		\
-				errors.c			\
-				tools.c				\
-				mutex_tools.c		\
-				global_tools.c		\
 
 INC			= -I./includes
 
@@ -28,11 +19,14 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+init:
+	mkdir -p $(OBJS_PATH)
+
+$(NAME): init $(OBJS)
 	$(CC) $(OBJS) $(INC) -o $(NAME)
 
 clean: 
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(OBJS_PATH)
 
 fclean: clean
 	$(RM) $(NAME)

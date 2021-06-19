@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:24:14 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/18 21:58:24 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/19 10:22:05 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void    destroy_mutex(t_philo *philo, t_global *global)
 
     i = -1;
     while (++i < global->nb_philo)
-        pthread_mutex_destroy(&philo->mutex[i]);
+        pthread_mutex_destroy(&global->philo[0].mutex[i]);
 }
 
 pthread_mutex_t *init_mutex(t_global *global)

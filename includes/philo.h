@@ -77,7 +77,7 @@ int 	ft_isint_foreach(char **argv, int (*func)(char *));
 int 	is_int(char *str);
 int		ft_positive_atoi(char *str);
 int		ft_usleep(int time);
-void	print_message(t_philo philo, char *action);
+void	print_message(t_params *params, char *action);
 
 //MUTEX TOOLS
 void				destroy_mutex(t_philo *philo, t_global *global);
@@ -89,8 +89,8 @@ int		ft_free_global(t_global *global, int ret);
 t_global	*init_global(char **argv, t_global *global);
 
 //ACTIONS
-void    philo_eat(t_philo philo);
-void    philo_sleep(t_philo philo);
-void    philo_think(t_philo philo);
+void    philo_eat(t_params *params);
+void    philo_sleep(t_params *params);
+void    philo_think(t_params *params);
 
 #endif
