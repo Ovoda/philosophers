@@ -6,43 +6,41 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:51:19 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 11:28:58 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/19 14:05:58 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void philo_eat(t_params *params)
+void philo_eat(t_philo *philo)
 {
-    struct timeval start;
     int ms_start;
-    t_philo philo;
+    
+    pthread_mutex_lock(&philo->mutex[philo->own_fork]);
+    print_message(*philo, ACTION_FORK);
+    pthread_mutex_lock(&philo->mutex[philo->next_fork]);
+    print_message(*philo, ACTION_FORK);
 
-    philo = params->global->philo[params->i];
-    pthread_mutex_lock(&philo.mutex[philo.own_fork]);
-    print_message(params, ACTION_FORK);
-    pthread_mutex_lock(&philo.mutex[philo.next_fork]);
-    print_message(params, ACTION_FORK);
-    print_message(params, ACTION_EAT);
-    ft_usleep(params->global->tto_eat);
-    gettimeofday(&start, NULL);
+    if (ft_get_time(philo->ms_start) - philo->last_meal > philo->tto_die)
+    {
+        print_message(*philo, DEATH);
+        *(philo->alive) = 0;
+    }
+    philo->last_meal = ft_get_time(philo->ms_start);
+    
+    print_message(*philo, ACTION_EAT);
+    ft_usleep(philo->tto_eat);
+    pthread_mutex_unlock(&philo->mutex[philo->own_fork]);
+    pthread_mutex_unlock(&philo->mutex[philo->next_fork]);
 }
 
-void philo_sleep(t_params *params)
+void philo_sleep(t_philo *philo)
 {
-    t_philo philo;
-
-    philo = params->global->philo[params->i];
-    print_message(params, ACTION_SLEEP);
-    pthread_mutex_unlock(&philo.mutex[philo.own_fork]);
-    pthread_mutex_unlock(&philo.mutex[philo.next_fork]);
-    ft_usleep(params->global->tto_sleep);
+    print_message(*philo, ACTION_SLEEP);
+    ft_usleep(philo->tto_sleep);
 }
 
-void philo_think(t_params *params)
+void philo_think(t_philo *philo)
 {
-    t_philo philo;
-
-    philo = params->global->philo[params->i];
-    print_message(params, ACTION_THINK);
+    print_message(*philo, ACTION_THINK);
 }

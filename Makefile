@@ -17,12 +17,12 @@ vpath			%.c $(shell find $(SRCS_PATH) -type d)
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	$(CC) $(INC) -c $< -o $@
 
-all: $(NAME)
+all: init $(NAME)
 
 init:
-	mkdir -p $(OBJS_PATH)
+	@ mkdir -p $(OBJS_PATH)
 
-$(NAME): init $(OBJS)
+$(NAME): $(OBJS)
 	$(CC) $(OBJS) $(INC) -o $(NAME)
 
 clean: 
