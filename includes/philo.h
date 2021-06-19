@@ -27,11 +27,11 @@
 # define INPUT_ARG_4 "[time to sleep]"
 # define INPUT_ARG_5 "[number of time each philosopher must eat]"
 # define INT_MAX 2147483647
-# define ACTION_EAT "is eating"
-# define ACTION_THINK "is thinking"
-# define ACTION_SLEEP "is sleeping"
-# define ACTION_FORK "has taken a fork"
-# define DEATH "died"
+# define ACTION_EAT "is eating\n"
+# define ACTION_THINK "is thinking\n"
+# define ACTION_SLEEP "is sleeping\n"
+# define ACTION_FORK "has taken a fork\n"
+# define DEATH "died\n"
 
 typedef struct	s_philo
 {

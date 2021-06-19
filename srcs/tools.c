@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 09:28:09 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 13:24:56 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/19 15:13:35 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ void	print_message(t_philo philo, char *action)
 	struct timeval	stop;
 	int	ms_stop;
 	int	time;
+	int	len;
 
+	len = 0;
 	gettimeofday(&stop, NULL);
 	ms_stop = stop.tv_sec * 1000 + stop.tv_usec / 1000;
-	printf("%05d %d %s\n", ms_stop - philo.ms_start, philo.id, action);
+	while (action[len])
+		len++;
+	printf("%05d %d %s", ms_stop - philo.ms_start, philo.id, action);
 }
 
 int ft_isint_foreach(char **argv, int (*func)(char *))

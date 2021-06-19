@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 14:06:40 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/19 15:14:38 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void run_philo(t_global *global, pthread_mutex_t *mutex)
     philo = global->philo;
     alive = 1;
     params = malloc(sizeof(t_params) * global->nb_philo);
-    printf("%d\n", global->nb_philo);
     last_meal = malloc(sizeof(int) * global->nb_philo);
     while (++i < global->nb_philo)
     {
@@ -71,10 +70,10 @@ void run_philo(t_global *global, pthread_mutex_t *mutex)
         pthread_create(&(philo[i].thread), NULL, routine, &philo[i]);
     }
     while (alive)
-        ;
-    // i = -1;
-    // while (++i < global->nb_philo)
-    //     pthread_join(philo[i].thread, NULL);
+        usleep(100);
+    i = -1;
+    while (++i < global->nb_philo)
+        pthread_detach(philo[i].thread);
 }
 
 int philo(t_global *global)

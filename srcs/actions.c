@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:51:19 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 14:05:58 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/19 14:19:01 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void philo_eat(t_philo *philo)
         print_message(*philo, DEATH);
         *(philo->alive) = 0;
     }
-    philo->last_meal = ft_get_time(philo->ms_start);
-    
     print_message(*philo, ACTION_EAT);
+    philo->last_meal = ft_get_time(philo->ms_start);
     ft_usleep(philo->tto_eat);
     pthread_mutex_unlock(&philo->mutex[philo->own_fork]);
     pthread_mutex_unlock(&philo->mutex[philo->next_fork]);
