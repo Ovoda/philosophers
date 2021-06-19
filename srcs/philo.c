@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 15:14:38 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/19 16:37:00 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,18 @@ void run_philo(t_global *global, pthread_mutex_t *mutex)
         pthread_create(&(philo[i].thread), NULL, routine, &philo[i]);
     }
     while (alive)
+    {
+        i = -1;
+        while (++i < global->nb_philo)
+        {
+            if (ft_get_time(philo->ms_start) - philo[i].last_meal > global->tto_die)
+            {
+                print_message(philo[i], DEATH);
+                return;
+            }
+        }
         usleep(100);
+    }
     i = -1;
     while (++i < global->nb_philo)
         pthread_detach(philo[i].thread);

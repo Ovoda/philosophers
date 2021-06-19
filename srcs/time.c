@@ -6,16 +6,16 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/19 12:37:37 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 14:39:12 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/19 16:53:09 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-unsigned int    ft_get_current_time(void)
+size_t   ft_get_current_time(void)
 {
     struct timeval  time;
-    unsigned long   ms_time;
+    size_t          ms_time;
 
     gettimeofday(&time, NULL);
     ms_time = time.tv_sec * 1000 + time.tv_usec / 1000;
@@ -24,9 +24,11 @@ unsigned int    ft_get_current_time(void)
 
 int    ft_usleep(int time)
 {
-    unsigned long ms_stop;
-    
-    ms_stop = ft_get_current_time() + time;
+    size_t  ms_stop;
+    size_t  ms_start;
+
+    ms_start = ft_get_current_time();
+    ms_stop = ms_start + time;
     while (ft_get_current_time() < ms_stop)
         usleep(100);
     return (time);
