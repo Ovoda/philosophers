@@ -6,25 +6,25 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 08:42:05 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 13:56:21 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 14:47:05 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void *ft_null_error(char *str, int mode)
+void	*ft_null_error(char *str, int mode)
 {
-    printf("Error: %s\n", str);
-    if (mode == INPUT_ERROR)
-        printf("%s %s %s %s %s %s\n", PHILO_ONE, INPUT_ARG_1, INPUT_ARG_2,
-        INPUT_ARG_3, INPUT_ARG_4, INPUT_ARG_5);
-    return (NULL);
+	printf("Error: %s\n", str);
+	if (mode == INPUT_ERROR)
+		printf("%s %s %s %s %s %s\n", PHILO, INPUT_ARG_1, INPUT_ARG_2,
+			INPUT_ARG_3, INPUT_ARG_4, INPUT_ARG_5);
+	return (NULL);
 }
 
 t_global	*handle_input(int argc, char **argv)
 {
 	t_global	*global;
-	
+
 	global = NULL;
 	if (argc < 5 || argc > 6)
 		return (ft_null_error(NB_ARG_ERROR, INPUT_ERROR));
@@ -53,7 +53,7 @@ t_global	*init_global(char **argv, t_global *global)
 	return (global);
 }
 
-int ft_free_global(t_global *global, int ret)
+int	ft_free_global(t_global *global, int ret)
 {
 	free(global);
 	return (ret);
