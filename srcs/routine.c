@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:27:55 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 15:28:40 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 16:08:49 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_if_all_good(t_philo *philo)
 	return (1);
 }
 
-void	run_philo(t_philo *philo, pthread_mutex_t *mutex)
+void	run_philo(t_philo *philo)
 {
 	int		alive;
 	int		i;

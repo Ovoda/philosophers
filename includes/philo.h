@@ -65,7 +65,7 @@ typedef struct s_global
 //Main functions
 void			*routine(void *arg);
 t_global		*handle_input(int argc, char **argv);
-void			run_philo(t_philo *philo, pthread_mutex_t *mutex);
+void			run_philo(t_philo *philo);
 
 //Errors
 void			*ft_null_error(char *str, int mode);

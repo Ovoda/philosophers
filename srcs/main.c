@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 14:57:10 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 16:09:13 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv)
 	i = -1;
 	mutex = init_mutex(global);
 	philo = init_philo(global, mutex);
-	run_philo(philo, mutex);
+	run_philo(philo);
 	i = -1;
 	while (++i < philo->nb_philo)
 		pthread_mutex_destroy(&philo[0].mutex[i]);
