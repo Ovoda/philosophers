@@ -41,7 +41,7 @@ typedef struct	s_philo
 	long int			tto_eat;
 	long int			tto_sleep;
 	long int			tto_die;
-	long int			ms_start;
+	time_t			ms_start;
 	int				nb_fork;
 	int				own_fork;
 	int				next_fork;
@@ -86,6 +86,7 @@ void	print_message(t_philo philo, char *action);
 //TIME TOOLS
 int		ft_usleep(int time);
 long int	ft_get_time(long int ms_start);
+time_t	get_time(void);
 
 //MUTEX TOOLS
 void				destroy_mutex(t_philo *philo, t_global *global);

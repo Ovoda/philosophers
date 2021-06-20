@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 11:12:33 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 13:04:49 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,38 @@ t_philo *init_philo(t_global *global)
 
 void run_philo(t_global *global, pthread_mutex_t *mutex)
 {
-    int i;
     t_philo *philo;
-    t_params *params;
-    int *last_meal;
     int alive;
+    int i;
 
     i = -1;
     philo = global->philo;
     alive = 1;
-    params = malloc(sizeof(t_params) * global->nb_philo);
-    last_meal = malloc(sizeof(int) * global->nb_philo);
     while (++i < global->nb_philo)
     {
-        last_meal[i] = 0;
         philo[i].mutex = mutex;
         philo[i].alive = &alive;
     }
-    i = -1;
-    while (++i < global->nb_philo)
+    i = 0;
+    time_t now;
+    now = get_time();
+    while (i < global->nb_philo)
     {
-        gettimeofday(&global->start, NULL);
-        global->ms_start = global->start.tv_sec * 1000 + global->start.tv_usec / 1000;
-        philo[i].ms_start = global->ms_start;
-        philo[i].last_meal = ft_get_time(philo->ms_start);
+        philo[i].last_meal = get_time();
+        philo[i].ms_start = now;
         pthread_create(&(philo[i].thread), NULL, routine, &philo[i]);
+        pthread_detach(philo[i].thread);
+        i += 2;
+    }
+    usleep(100);
+    i = 1;
+    while (i < global->nb_philo)
+    {
+        philo[i].last_meal = get_time();
+        philo[i].ms_start = now;
+        pthread_create(&(philo[i].thread), NULL, routine, &philo[i]);
+        pthread_detach(philo[i].thread);
+        i += 2;
     }
     while (alive)
     {
@@ -72,15 +79,15 @@ void run_philo(t_global *global, pthread_mutex_t *mutex)
         {
             if (ft_get_time(philo->ms_start) - philo[i].last_meal > global->tto_die)
             {
-                print_message(philo[i], DEATH);
+                printf("%d died\n", philo[i].id);
                 return;
             }
         }
         usleep(1000);
     }
-    i = -1;
-    while (++i < global->nb_philo)
-        pthread_detach(philo[i].thread);
+    //i = -1;
+    //while (++i < global->nb_philo)
+    //    pthread_detach(philo[i].thread);
 }
 
 int philo(t_global *global)

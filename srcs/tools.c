@@ -6,20 +6,15 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 09:28:09 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 11:22:23 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 12:14:28 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	print_message(t_philo philo, char *action)
+void print_message(t_philo philo, char *action)
 {
-	struct timeval	stop;
-	long int			ms_stop;
-
-	gettimeofday(&stop, NULL);
-	ms_stop = stop.tv_sec * 1000 + stop.tv_usec / 1000 - philo.ms_start;
-	printf("%05zu %d %s", ms_stop, philo.id, action);
+	
 }
 
 int ft_isint_foreach(char **argv, int (*func)(char *))
@@ -44,11 +39,11 @@ int is_int(char *str)
 	return (0);
 }
 
-int	ft_positive_atoi(char *str)
+int ft_positive_atoi(char *str)
 {
-	long int	n;
-	int			i;
-	
+	long int n;
+	int i;
+
 	n = 0;
 	i = -1;
 	while (str[++i])
