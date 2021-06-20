@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 16:37:00 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 11:12:33 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_philo *init_philo(t_global *global)
 void run_philo(t_global *global, pthread_mutex_t *mutex)
 {
     int i;
-    pthread_t thread;
     t_philo *philo;
     t_params *params;
     int *last_meal;
@@ -55,18 +54,15 @@ void run_philo(t_global *global, pthread_mutex_t *mutex)
     {
         last_meal[i] = 0;
         philo[i].mutex = mutex;
-        philo[i].last_meal = 0;
         philo[i].alive = &alive;
     }
     i = -1;
-    gettimeofday(&global->start, NULL);
-    global->ms_start = global->start.tv_sec * 1000 + global->start.tv_usec / 1000;
     while (++i < global->nb_philo)
     {
-        last_meal[i] = 0;
-        philo[i].mutex = mutex;
-        philo[i].last_meal = 0;
+        gettimeofday(&global->start, NULL);
+        global->ms_start = global->start.tv_sec * 1000 + global->start.tv_usec / 1000;
         philo[i].ms_start = global->ms_start;
+        philo[i].last_meal = ft_get_time(philo->ms_start);
         pthread_create(&(philo[i].thread), NULL, routine, &philo[i]);
     }
     while (alive)
@@ -80,7 +76,7 @@ void run_philo(t_global *global, pthread_mutex_t *mutex)
                 return;
             }
         }
-        usleep(100);
+        usleep(1000);
     }
     i = -1;
     while (++i < global->nb_philo)

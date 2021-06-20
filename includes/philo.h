@@ -38,14 +38,14 @@ typedef struct	s_philo
 	pthread_t		thread;
 	int				id;
 	pthread_mutex_t *mutex;
-	int				tto_eat;
-	int				tto_sleep;
-	int				tto_die;
-	int				ms_start;
+	long int			tto_eat;
+	long int			tto_sleep;
+	long int			tto_die;
+	long int			ms_start;
 	int				nb_fork;
 	int				own_fork;
 	int				next_fork;
-	int				last_meal;
+	long int			last_meal;
 	int				*alive;
 }				t_philo;
 
@@ -53,12 +53,12 @@ typedef struct  s_global
 {
 	int				nb_forks;
 	int				nb_philo;
-	int				tto_die;
-	int				tto_eat;
-	int				tto_sleep;
+	long int			tto_die;
+	long int			tto_eat;
+	long int			tto_sleep;
 	int				nb_eat;
 	int				alive;
-	int				ms_start;
+	long int			ms_start;
 	int				nb_fork;
 	t_philo			*philo;
 	struct timeval	start;
@@ -85,7 +85,7 @@ void	print_message(t_philo philo, char *action);
 
 //TIME TOOLS
 int		ft_usleep(int time);
-int     ft_get_time(int ms_start);
+long int	ft_get_time(long int ms_start);
 
 //MUTEX TOOLS
 void				destroy_mutex(t_philo *philo, t_global *global);

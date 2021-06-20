@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 08:42:05 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/19 12:22:39 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 11:20:02 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ t_global	*init_global(char **argv, t_global *global)
 
 void    print_global(t_global global)
 {
-	printf("global :\n");
-	printf("Nb of philo : %d\n", global.nb_philo);
-	printf("Time to die : %d\n", global.tto_die);
-	printf("Tiem to eat : %d\n", global.tto_eat);
-	printf("Time to sleep : %d\n", global.tto_sleep);
 	if (global.nb_eat != 0)
 		printf("Nb of time each philo must eat : %d\n", global.nb_eat);
 	else
