@@ -6,16 +6,11 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 09:28:09 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 12:14:28 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 14:15:25 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-void print_message(t_philo philo, char *action)
-{
-	
-}
 
 int ft_isint_foreach(char **argv, int (*func)(char *))
 {

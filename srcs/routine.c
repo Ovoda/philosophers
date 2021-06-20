@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:27:55 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 14:00:59 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 14:23:07 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void *routine(void *arg)
 
 	i = -1;
 	philo = (t_philo *)(arg);
-	philo->last_meal = 0;
 	begin = 0;
 	while (++i < philo->nb_eat || (philo->nb_eat == -1))
 	{
@@ -29,7 +28,7 @@ void *routine(void *arg)
 		printf("%06ld %d has taken own fork\n", get_time() - philo->ms_start, philo->id);
 		printf("%06ld %d has taken next fork\n", get_time() - philo->ms_start, philo->id);
 		printf("%06ld %d is eating\n", get_time() - philo->ms_start, philo->id);
-		philo->last_meal = ft_get_time(philo->ms_start);
+		philo->last_meal = get_time();
 		ft_usleep(philo->tto_eat);
 		printf("%06ld %d is sleeping\n", get_time() - philo->ms_start, philo->id);
 		pthread_mutex_unlock(&philo->mutex[philo->next_fork]);

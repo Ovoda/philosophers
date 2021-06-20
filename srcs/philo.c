@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 14:13:41 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 14:23:31 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void run_philo(t_philo *philo, pthread_mutex_t *mutex)
 		i = -1;
 		while (++i < philo->nb_philo)
 		{
-			if (ft_get_time(philo->ms_start) - philo[i].last_meal > philo->tto_die)
+			if (get_time() - philo[i].last_meal > philo->tto_die)
 			{
 				printf("%06ld %d died\n", get_time() - philo->ms_start, philo[i].id);
 				return;
