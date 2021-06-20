@@ -6,20 +6,19 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:24:14 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 11:11:43 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 13:32:23 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void    destroy_mutex(t_philo *philo, t_global *global)
+void    destroy_mutex(t_philo *philo)
 {
     int i;
 
     i = -1;
-    (void)philo;
-    while (++i < global->nb_philo)
-        pthread_mutex_destroy(&global->philo[0].mutex[i]);
+    while (++i < philo->nb_philo)
+        pthread_mutex_destroy(&philo[0].mutex[i]);
 }
 
 pthread_mutex_t *init_mutex(t_global *global)

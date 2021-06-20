@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:27:55 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 13:02:23 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/20 14:00:59 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void *routine(void *arg)
 {
 	t_philo *philo;
 	int begin;
+	int i;
 
+	i = -1;
 	philo = (t_philo *)(arg);
 	philo->last_meal = 0;
 	begin = 0;
-	while (1)
+	while (++i < philo->nb_eat || (philo->nb_eat == -1))
 	{
 		pthread_mutex_lock(&philo->mutex[philo->own_fork]);
 		pthread_mutex_lock(&philo->mutex[philo->next_fork]);
@@ -29,11 +31,12 @@ void *routine(void *arg)
 		printf("%06ld %d is eating\n", get_time() - philo->ms_start, philo->id);
 		philo->last_meal = ft_get_time(philo->ms_start);
 		ft_usleep(philo->tto_eat);
+		printf("%06ld %d is sleeping\n", get_time() - philo->ms_start, philo->id);
 		pthread_mutex_unlock(&philo->mutex[philo->next_fork]);
 		pthread_mutex_unlock(&philo->mutex[philo->own_fork]);
-		printf("%06ld %d is sleeping\n", get_time() - philo->ms_start, philo->id);
 		ft_usleep(philo->tto_sleep);
 		printf("%06ld %d is thinking\n", get_time() - philo->ms_start, philo->id);
 	}
+	philo->all_good = 1;
 	return (NULL);
 }

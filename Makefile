@@ -1,6 +1,6 @@
 NAME	= philo
 
-CC		= clang
+CC		= clang -g
 RM		= rm -rf
 
 SRCS_PATH	=	srcs/

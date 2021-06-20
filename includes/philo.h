@@ -38,29 +38,27 @@ typedef struct	s_philo
 	pthread_t		thread;
 	int				id;
 	pthread_mutex_t *mutex;
-	long int			tto_eat;
-	long int			tto_sleep;
-	long int			tto_die;
+	long int		tto_eat;
+	long int		tto_sleep;
+	long int		tto_die;
+	int				nb_eat;
 	time_t			ms_start;
-	int				nb_fork;
+	int				nb_philo;
 	int				own_fork;
 	int				next_fork;
-	long int			last_meal;
+	long int		last_meal;
+	int				all_good;
 	int				*alive;
 }				t_philo;
 
 typedef struct  s_global 
 {
-	int				nb_forks;
 	int				nb_philo;
-	long int			tto_die;
-	long int			tto_eat;
-	long int			tto_sleep;
+	long int		tto_die;
+	long int		tto_eat;
+	long int		tto_sleep;
+	long int		ms_start;
 	int				nb_eat;
-	int				alive;
-	long int			ms_start;
-	int				nb_fork;
-	t_philo			*philo;
 	struct timeval	start;
 }				t_global;
 
@@ -71,25 +69,25 @@ typedef struct	s_params
 }				t_params;
 
 t_global	*handle_input(int argc, char **argv);
-int		philo(t_global *global);
-void	*routine(void *arg);
+int			philo(t_global *global);
+void		*routine(void *arg);
 
 //ERRORS
-void	*ft_null_error(char *str, int mode);
+void		*ft_null_error(char *str, int mode);
 
 //TOOLS
-int 	ft_isint_foreach(char **argv, int (*func)(char *));
-int 	is_int(char *str);
-int		ft_positive_atoi(char *str);
-void	print_message(t_philo philo, char *action);
+int			ft_isint_foreach(char **argv, int (*func)(char *));
+int			is_int(char *str);
+int			ft_positive_atoi(char *str);
+void		print_message(t_philo philo, char *action);
 
 //TIME TOOLS
-int		ft_usleep(int time);
+int			ft_usleep(int time);
 long int	ft_get_time(long int ms_start);
-time_t	get_time(void);
+time_t		get_time(void);
 
 //MUTEX TOOLS
-void				destroy_mutex(t_philo *philo, t_global *global);
+void				destroy_mutex(t_philo *philo);
 pthread_mutex_t    *init_mutex(t_global *global);
 
 //global TOOLS
