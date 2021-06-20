@@ -3,27 +3,25 @@ NAME	= philo
 CC		= clang -g
 RM		= rm -rf
 
+LINUX_FLAG = 
+
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
-
 INC			= -I./includes
-
 SRCS		= $(notdir $(shell find $(SRCS_PATH) -type f -name *.c))
 OBJS		= $(addprefix $(OBJS_PATH),$(SRCS:.c=.o))
 
-vpath			%.c $(shell find $(SRCS_PATH) -type d)
-.SUFFIXES: 		.c .o .h
-
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
-	$(CC) $(INC) -c $< -o $@
-
-all: init $(NAME)
-
-init:
 	@ mkdir -p $(OBJS_PATH)
+	$(CC) $(LINUX_FLAG) $(INC) -c $< -o $@
+
+all: $(NAME)
+
+linux: LINUX_FLAG = -lpthread
+linux: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(INC) -o $(NAME)
+	$(CC) $(LINUX_FLAG) $(OBJS) $(INC) -o $(NAME)
 
 clean: 
 	$(RM) $(OBJS) $(OBJS_PATH)
