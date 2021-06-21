@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:27:55 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 16:08:49 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/21 12:46:41 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ void	*routine(void *arg)
 	{
 		philo->all_good = 0;
 		pthread_mutex_lock(&philo->mutex[philo->own_fork]);
-		printf("%06ld %d has taken fork\n", sub_t(philo->ms), philo->id);
+		printf("%06ld %d has taken fork\n", sub_t(philo->ms), philo->id + 1);
 		pthread_mutex_lock(&philo->mutex[philo->next_fork]);
-		printf("%06ld %d has taken fork\n", sub_t(philo->ms), philo->id);
-		printf("%06ld %d is eating\n", sub_t(philo->ms), philo->id);
+		printf("%06ld %d has taken fork\n", sub_t(philo->ms), philo->id + 1);
+		printf("%06ld %d is eating\n", sub_t(philo->ms), philo->id + 1);
 		philo->last_meal = get_time();
 		ft_usleep(philo->tto_eat);
-		printf("%06ld %d is sleeping\n", sub_t(philo->ms), philo->id);
+		printf("%06ld %d is sleeping\n", sub_t(philo->ms), philo->id + 1);
 		pthread_mutex_unlock(&philo->mutex[philo->next_fork]);
 		pthread_mutex_unlock(&philo->mutex[philo->own_fork]);
 		philo->all_good = 1;
 		ft_usleep(philo->tto_sleep);
-		printf("%06ld %d is thinking\n", sub_t(philo->ms), philo->id);
+		printf("%06ld %d is thinking\n", sub_t(philo->ms), philo->id + 1);
 	}
 	philo->all_good = 1;
 	return (NULL);
@@ -93,7 +93,7 @@ void	run_philo(t_philo *philo)
 		{
 			if (get_time() - philo[i].last_meal > philo->tto_die)
 			{
-				printf("%06ld %d died\n", sub_t(philo->ms), philo->id);
+				printf("%06ld %d died\n", sub_t(philo->ms), philo->id + 1);
 				return ;
 			}
 		}
