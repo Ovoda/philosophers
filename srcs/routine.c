@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:27:55 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/24 15:51:32 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/24 15:58:38 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	philo_eat(t_philo *philo)
 	print_message("has taken fork", philo);
 	pthread_mutex_lock(&philo->mutex[philo->next_fork]);
 	print_message("has taken fork", philo);
-	print_message("is eating", philo);
 	pthread_mutex_lock(&philo->lm_mutex);
+	print_message("is eating", philo);
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->lm_mutex);
 	ft_usleep(philo->tto_eat, philo);

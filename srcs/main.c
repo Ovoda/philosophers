@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/24 15:52:43 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/24 16:01:41 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_philo	*init_philo(t_global *global, pthread_mutex_t *mutex)
 	t_philo			*philo;
 	int				i;
 	pthread_mutex_t	*mtx[3];
-	pthread_mutex_t	lm_mutex;
 
 	i = -1;
 	while (++i < 3)
