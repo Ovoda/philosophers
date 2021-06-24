@@ -12,9 +12,11 @@
 
 #include "../includes/philo.h"
 
-time_t sub_t(time_t ms)
+void	print_message(char *message, t_philo *philo)
 {
-	return (get_time() - ms);
+	pthread_mutex_lock(philo->display_mutex);
+	printf("%06ld %d %s\n", get_time() - philo->ms, philo->id + 1, message);
+	pthread_mutex_unlock(philo->display_mutex);
 }
 
 void *routine(void *arg)
@@ -31,22 +33,22 @@ void *routine(void *arg)
 			return (NULL);
 		pthread_mutex_unlock((philo->ag_mutex));
 		pthread_mutex_lock(&philo->mutex[philo->own_fork]);
-		printf("%06ld %d has taken fork\n", sub_t(philo->ms), philo->id + 1);
+		print_message("has taken fork", philo);
 		pthread_mutex_lock(&philo->mutex[philo->next_fork]);
-		printf("%06ld %d has taken fork\n", sub_t(philo->ms), philo->id + 1);
-		printf("%06ld %d is eating\n", sub_t(philo->ms), philo->id + 1);
+		print_message("has taken fork", philo);
+		print_message("is eating", philo);
 		pthread_mutex_lock(&philo->lm_mutex);
 		philo->last_meal = get_time();
 		pthread_mutex_unlock(&philo->lm_mutex);
-		ft_usleep(philo->tto_eat, philo->all_good);
+		ft_usleep(philo->tto_eat, philo);
 		pthread_mutex_lock((philo->ag_mutex));
 		*(philo->all_good) += 1;
 		pthread_mutex_unlock((philo->ag_mutex));
 		pthread_mutex_unlock(&philo->mutex[philo->next_fork]);
 		pthread_mutex_unlock(&philo->mutex[philo->own_fork]);
-		printf("%06ld %d is sleeping\n", sub_t(philo->ms), philo->id + 1);
-		ft_usleep(philo->tto_sleep, philo->all_good);
-		printf("%06ld %d is thinking\n", sub_t(philo->ms), philo->id + 1);
+		print_message("is sleeping", philo);
+		ft_usleep(philo->tto_sleep, philo);
+		print_message("is thinking", philo);
 	}
 	return (NULL);
 }
@@ -87,7 +89,7 @@ void *monitor(void *arg)
 			pthread_mutex_lock(&philo[i].lm_mutex);
 			if (get_time() - philo[i].last_meal > philo->tto_die)
 			{
-				printf("%06ld %d died\n", sub_t(philo->ms), philo[i].id + 1);
+				print_message("died", &philo[i]);
 				ok = 0;
 				*philo->all_good = -1;
 				return (NULL);
@@ -109,7 +111,7 @@ void run_philo(t_philo *philo)
 	now = get_time();
 	all_good = 0;
 	start_half_thread(philo, 0, &all_good, now);
-	ft_usleep(100, philo->all_good);
+	ft_usleep(100, philo);
 	start_half_thread(philo, 1, &all_good, now);
 	pthread_create(&thread, NULL, monitor, philo);
 	pthread_join(thread, NULL);

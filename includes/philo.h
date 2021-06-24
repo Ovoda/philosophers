@@ -41,6 +41,7 @@ typedef struct s_philo
 	pthread_mutex_t	*ag_mutex;
 	pthread_mutex_t lm_mutex;
 	pthread_mutex_t *av_mutex;
+	pthread_mutex_t *display_mutex;
 	long int		tto_eat;
 	long int		tto_sleep;
 	long int		tto_die;
@@ -73,10 +74,10 @@ void			run_philo(t_philo *philo);
 //Errors
 void			*ft_null_error(char *str, int mode);
 
-//Secondary functions (tools)
+//Secondary functions (tools)q
 time_t			get_time(void);
 int				is_int(char *str);
-void			ft_usleep(int time, int *all_good);
+void			ft_usleep(int time, t_philo *philo);
 int				ft_positive_atoi(char *str);
 void			destroy_mutex(t_philo *philo);
 pthread_mutex_t	*init_mutex(t_global *global);

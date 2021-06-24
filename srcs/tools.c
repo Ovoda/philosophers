@@ -56,13 +56,19 @@ time_t	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	ft_usleep(int time, int *all_good)
+void	ft_usleep(int time, t_philo *philo)
 {
 	time_t	ms_stop;
 	time_t	ms;
 
 	ms = get_time();
 	ms_stop = ms + time;
-	while (get_time() < ms_stop && *all_good != -1)
+	while (get_time() < ms_stop)
+	{
+		pthread_mutex_lock(philo->ag_mutex);
+			if (*philo->all_good == -1)
+				return ;
+		pthread_mutex_unlock(philo->ag_mutex);
 		usleep(100);
+	}
 }
