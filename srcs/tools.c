@@ -56,14 +56,13 @@ time_t	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	ft_usleep(int time)
+void	ft_usleep(int time, int *all_good)
 {
 	time_t	ms_stop;
 	time_t	ms;
 
 	ms = get_time();
 	ms_stop = ms + time;
-	while (get_time() < ms_stop)
+	while (get_time() < ms_stop && *all_good != -1)
 		usleep(100);
-	return (time);
 }

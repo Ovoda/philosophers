@@ -17,11 +17,13 @@ t_philo	*init_philo(t_global *global, pthread_mutex_t *mutex)
 	t_philo	*philo;
 	int		i;
 	pthread_mutex_t	*ag_mutex;
+	pthread_mutex_t	*av_mutex;
 	pthread_mutex_t	lm_mutex;
 
 	i = -1;
 	philo = (t_philo *)malloc(sizeof(t_philo) * (global->nb_philo));
 	ag_mutex = malloc(sizeof(pthread_mutex_t));
+	av_mutex = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(ag_mutex, NULL);
 	if (!philo)
 		return (NULL);
@@ -41,6 +43,7 @@ t_philo	*init_philo(t_global *global, pthread_mutex_t *mutex)
 		philo[i].tto_sleep = global->tto_sleep;
 		philo[i].mutex = mutex;
 		philo[i].ag_mutex = ag_mutex;
+		philo[i].av_mutex = av_mutex;
 		pthread_mutex_init(&philo[i].lm_mutex, NULL);
 	}
 	return (philo);

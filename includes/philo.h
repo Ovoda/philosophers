@@ -40,6 +40,7 @@ typedef struct s_philo
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	*ag_mutex;
 	pthread_mutex_t lm_mutex;
+	pthread_mutex_t *av_mutex;
 	long int		tto_eat;
 	long int		tto_sleep;
 	long int		tto_die;
@@ -50,6 +51,7 @@ typedef struct s_philo
 	int				next_fork;
 	long int		last_meal;
 	int				*all_good;
+	int				*alive;
 }				t_philo;
 
 typedef struct s_global
@@ -74,7 +76,7 @@ void			*ft_null_error(char *str, int mode);
 //Secondary functions (tools)
 time_t			get_time(void);
 int				is_int(char *str);
-int				ft_usleep(int time);
+void			ft_usleep(int time, int *all_good);
 int				ft_positive_atoi(char *str);
 void			destroy_mutex(t_philo *philo);
 pthread_mutex_t	*init_mutex(t_global *global);
