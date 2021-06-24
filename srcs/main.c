@@ -6,29 +6,26 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 11:05:11 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/22 12:59:53 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/24 15:52:43 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_philo	*init_philo(t_global *global, pthread_mutex_t *mutex)
+void	print_message(char *message, t_philo *philo)
 {
-	t_philo	*philo;
+	pthread_mutex_lock(philo->display_mutex);
+	printf("%06ld %d %s\n", get_time() - philo->ms, philo->id + 1, message);
+	pthread_mutex_unlock(philo->display_mutex);
+}
+
+t_philo	*init_philo_global_var(t_global *global, pthread_mutex_t *mutex)
+{
 	int		i;
-	pthread_mutex_t	*ag_mutex;
-	pthread_mutex_t	*av_mutex;
-	pthread_mutex_t	*display_mutex;
-	pthread_mutex_t	lm_mutex;
+	t_philo	*philo;
 
 	i = -1;
 	philo = (t_philo *)malloc(sizeof(t_philo) * (global->nb_philo));
-	ag_mutex = malloc(sizeof(pthread_mutex_t));
-	av_mutex = malloc(sizeof(pthread_mutex_t));
-	display_mutex = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(ag_mutex, NULL);
-	pthread_mutex_init(av_mutex, NULL);
-	pthread_mutex_init(display_mutex, NULL);
 	if (!philo)
 		return (NULL);
 	while (++i < global->nb_philo)
@@ -46,9 +43,32 @@ t_philo	*init_philo(t_global *global, pthread_mutex_t *mutex)
 		philo[i].tto_die = global->tto_die;
 		philo[i].tto_sleep = global->tto_sleep;
 		philo[i].mutex = mutex;
-		philo[i].ag_mutex = ag_mutex;
-		philo[i].av_mutex = av_mutex;
-		philo[i].display_mutex = display_mutex;
+	}
+	return (philo);
+}
+
+t_philo	*init_philo(t_global *global, pthread_mutex_t *mutex)
+{
+	t_philo			*philo;
+	int				i;
+	pthread_mutex_t	*mtx[3];
+	pthread_mutex_t	lm_mutex;
+
+	i = -1;
+	while (++i < 3)
+	{
+		mtx[i] = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(mtx[i], NULL);
+	}
+	philo = init_philo_global_var(global, mutex);
+	if (!philo)
+		return (NULL);
+	i = -1;
+	while (++i < global->nb_philo)
+	{
+		philo[i].ag_mutex = mtx[0];
+		philo[i].av_mutex = mtx[1];
+		philo[i].display_mutex = mtx[2];
 		pthread_mutex_init(&philo[i].lm_mutex, NULL);
 	}
 	return (philo);
@@ -79,16 +99,16 @@ int	main(int argc, char **argv)
 		return (ft_free_global(global, -1));
 	i = -1;
 	if (global->nb_philo == 0)
-	{
-		free(global);
-		return (0);
-	}
+		return (ft_free_global(global, -1));
 	mutex = init_mutex(global);
 	philo = init_philo(global, mutex);
 	run_philo(philo);
 	i = -1;
 	while (++i < philo->nb_philo)
 		pthread_mutex_destroy(&philo[0].mutex[i]);
+	free(philo->ag_mutex);
+	free(philo->av_mutex);
+	free(philo->display_mutex);
 	free(philo);
 	free(mutex);
 	free(global);

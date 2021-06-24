@@ -6,7 +6,7 @@
 /*   By: calide-n <calide-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 09:28:09 by calide-n          #+#    #+#             */
-/*   Updated: 2021/06/20 14:57:10 by calide-n         ###   ########.fr       */
+/*   Updated: 2021/06/24 14:40:22 by calide-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	ft_usleep(int time, t_philo *philo)
 	while (get_time() < ms_stop)
 	{
 		pthread_mutex_lock(philo->ag_mutex);
-			if (*philo->all_good == -1)
-				return ;
+		if (*philo->all_good == -1)
+			return ;
 		pthread_mutex_unlock(philo->ag_mutex);
 		usleep(100);
 	}

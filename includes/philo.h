@@ -39,9 +39,9 @@ typedef struct s_philo
 	int				id;
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	*ag_mutex;
-	pthread_mutex_t lm_mutex;
-	pthread_mutex_t *av_mutex;
-	pthread_mutex_t *display_mutex;
+	pthread_mutex_t	lm_mutex;
+	pthread_mutex_t	*av_mutex;
+	pthread_mutex_t	*display_mutex;
 	long int		tto_eat;
 	long int		tto_sleep;
 	long int		tto_die;
@@ -84,5 +84,6 @@ pthread_mutex_t	*init_mutex(t_global *global);
 int				ft_free_global(t_global *global, int ret);
 t_global		*init_global(char **argv, t_global *global);
 int				ft_isint_foreach(char **argv, int (*func)(char *));
+void			print_message(char *message, t_philo *philo);
 
 #endif
