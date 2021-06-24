@@ -111,7 +111,7 @@ void run_philo(t_philo *philo)
 	now = get_time();
 	all_good = 0;
 	start_half_thread(philo, 0, &all_good, now);
-	ft_usleep(100, philo);
+	ft_usleep(10, philo);
 	start_half_thread(philo, 1, &all_good, now);
 	pthread_create(&thread, NULL, monitor, philo);
 	pthread_join(thread, NULL);
