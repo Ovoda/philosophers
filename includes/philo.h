@@ -38,6 +38,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				id;
 	pthread_mutex_t	*mutex;
+	pthread_mutex_t	*ag_mutex;
+	pthread_mutex_t lm_mutex;
 	long int		tto_eat;
 	long int		tto_sleep;
 	long int		tto_die;
@@ -47,8 +49,7 @@ typedef struct s_philo
 	int				own_fork;
 	int				next_fork;
 	long int		last_meal;
-	int				all_good;
-	int				*alive;
+	int				*all_good;
 }				t_philo;
 
 typedef struct s_global

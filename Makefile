@@ -1,6 +1,6 @@
 NAME	= philo
 
-CC		= clang -Wall -Wextra -Werror
+CC		= clang -g -fsanitize=thread #-Wall -Wextra -Werror
 RM		= rm -rf
 
 LINUX_FLAG = #-lpthread
